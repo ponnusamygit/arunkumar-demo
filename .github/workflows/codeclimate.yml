@@ -1,0 +1,20 @@
+name: Code Climate Analysis
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install CodeClimate CLI
+        uses: gr2m/cc-install-action@v1.1.0
+
+      - name: Analyze Code
+        env:
+          CODECLIMATE_REPO_TOKEN: ${{ secrets.CODECLIMATE_REPO_TOKEN }}  # Replace with your repo token
+        run: |
+          codeclimate analyze
